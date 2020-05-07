@@ -17,7 +17,23 @@ class TestGetStarted:
             print(album['name'])
 
     def test_google_cloud_secret_manager(self):
-        pass
+        # Import the Secret Manager client library.
+        from google.cloud import secretmanager
+
+        # ID of the secret to create.
+        project_name = 'spotifyservice'
+        secret_name = 'spotify-client-id'
+
+        # Create the Secret Manager client.
+        client = secretmanager.SecretManagerServiceClient()
+
+        response = client.access_secret_version(name=client.secret_version_path(project=project_name, secret=secret_name
+                                                                                , secret_version=1))
+
+        payload = response.payload.data.decode('UTF-8')
+        print('Plaintext: {}'.format(payload))
+
+
 
 
 
